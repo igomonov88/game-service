@@ -21,7 +21,7 @@ type PlayTest struct {
 
 func Test_Play(t *testing.T) {
 	t.Parallel()
-	test := dbtest.NewIntegration(t, c)
+	test := dbtest.NewIntegration(t)
 	t.Cleanup(test.Teardown)
 	gameServce := game.NewService(test.Log)
 	storage := storage.NewService(test.DB)

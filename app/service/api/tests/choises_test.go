@@ -34,7 +34,7 @@ var expectedValues = map[int]string{
 
 func Test_Choice(t *testing.T) {
 	t.Parallel()
-	test := dbtest.NewIntegration(t, c)
+	test := dbtest.NewIntegration(t)
 	t.Cleanup(test.Teardown)
 	gameService := game.NewService(test.Log)
 	choiceService := choice.NewService(test.Log, gameService, gameService)

@@ -21,5 +21,5 @@ COPY --from=builder /service/app/tooling/admin/admin /service/admin
 COPY --from=builder /service/app/service/api/api /service/api
 
 WORKDIR /service
-EXPOSE 8080
+
 CMD ["./api"]
