@@ -1,0 +1,5 @@
+### Get choice
+GET {{host}}/choice
+
+### Get choices
+GET {{host}}/choices

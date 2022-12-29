@@ -1,0 +1,31 @@
+### Play game
+POST {{host}}/play
+Content-Type: application/json
+
+{
+  "player": 2
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Get scoreboard
+GET {{host}}/scoreboard
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Delete scoreboard results
+DELETE {{host}}/scoreboard
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 204, "Response status is not 204");
+    });
+%}

@@ -1,0 +1,11 @@
+ServiceName: game-service
+
+Server:
+  Address: localhost:8087
+  ReadTimeout: 6s
+  WriteTimeout: 6s
+  ShutdownTimeout: 6s
+
+Database:
+  DriverName: sqlite3
+  Name: billups_challenge.db
