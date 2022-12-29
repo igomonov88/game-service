@@ -23,7 +23,6 @@ import (
 func NewUnit(t *testing.T) (*zap.SugaredLogger, *sqlx.DB, func()) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-
 	db, err := database.New(database.Config{
 		DriverName: "sqlite3",
 		Name:       "billups_challenge_test.db",
@@ -55,8 +54,10 @@ func NewUnit(t *testing.T) (*zap.SugaredLogger, *sqlx.DB, func()) {
 	// with the database.
 	teardown := func() {
 		t.Helper()
+		if _, err := db.Exec("DELETE FROM results"); err != nil {
+			t.Fatalf("dropping database %s", err)
+		}
 		db.Close()
-
 		log.Sync()
 
 		writer.Flush()
