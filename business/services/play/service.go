@@ -5,6 +5,7 @@ import (
 
 	"go.uber.org/zap"
 
+	"githib.com/igomonov88/game-service/business/services/game"
 	"githib.com/igomonov88/game-service/internal/database"
 )
 
@@ -16,24 +17,22 @@ type Storage interface {
 	ClearResults(ctx context.Context) error
 }
 
-// Player is the interface that decouple game package and operate only with methods
-// which play service needs. This interface also can be useful to mock game
-// package logic in tests.
-type Player interface {
-	RandomChoiceID(ctx context.Context) int
-	Play(ctx context.Context, userChoice int, computerChoice int) string
+type RandomGenerator interface {
+	GenerateRandomNumber(ctx context.Context) int
 }
 
 type Service struct {
-	storage Storage
-	player  Player
-	logger  *zap.SugaredLogger
+	storage     Storage
+	generator   RandomGenerator
+	gameService *game.Service
+	logger      *zap.SugaredLogger
 }
 
-func NewService(logger *zap.SugaredLogger, storage Storage, player Player) *Service {
+func NewService(logger *zap.SugaredLogger, storage Storage, gameService *game.Service, generator RandomGenerator) *Service {
 	return &Service{
-		logger:  logger,
-		storage: storage,
-		player:  player,
+		logger:      logger,
+		storage:     storage,
+		generator:   generator,
+		gameService: gameService,
 	}
 }

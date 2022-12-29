@@ -9,8 +9,8 @@ import (
 
 const maxChoiceID = 5
 
-// RandomChoiceID returns a random choice ID.
-func (s *Service) RandomChoiceID(ctx context.Context) int {
+// GenerateRandomNumber returns a random choice ID.
+func (s *Service) GenerateRandomNumber(ctx context.Context) int {
 	choiceID := random.Int(maxChoiceID)
 	reqID := middlewaries.RequestIDFromContext(ctx)
 	s.logger.Infof("request_id: %v, generated random choice ID: %d", reqID, choiceID)

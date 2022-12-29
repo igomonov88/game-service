@@ -11,7 +11,10 @@ import (
 // GetChoice returns a random choice from the game or error if choiceID is
 // out of range.
 func (s *Service) GetChoice(ctx context.Context) (*contract.ChoiceResponse, error) {
-	return s.fromChoiceIdToResponse(ctx, s.gameService.RandomChoiceID(ctx))
+	s.logger.Info("getting choice")
+	choiceID := s.generator.GenerateRandomNumber(ctx)
+
+	return s.fromChoiceIdToResponse(ctx, s.fromGeneratedRandomNumberToChoiceID(choiceID))
 }
 
 // GetChoices returns a list of all possible choices.
@@ -38,4 +41,21 @@ func (s *Service) fromChoiceIdToResponse(ctx context.Context, choiceID int) (*co
 	}
 
 	return &contract.ChoiceResponse{ID: choiceID, Name: choiceName}, nil
+}
+
+// fromGeneratedRandomNumberToChoiceID gets a random number from the generator
+// response and converts it to a choice ID.
+func (s *Service) fromGeneratedRandomNumberToChoiceID(number int) int {
+	switch {
+	case number <= 20:
+		return 1
+	case number > 20 && number <= 40:
+		return 2
+	case number > 40 && number <= 60:
+		return 3
+	case number > 60 && number <= 80:
+		return 4
+	default:
+		return 5
+	}
 }

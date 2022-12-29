@@ -37,7 +37,7 @@ func Test_Choice(t *testing.T) {
 	test := dbtest.NewIntegration(t, c)
 	t.Cleanup(test.Teardown)
 	gameService := game.NewService(test.Log)
-	choiceService := choice.NewService(test.Log, gameService)
+	choiceService := choice.NewService(test.Log, gameService, gameService)
 	api := handlers.Handler(test.Log, choiceService, nil, nil)
 	tests := ChoicesTests{handler: api}
 

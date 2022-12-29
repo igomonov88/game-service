@@ -29,8 +29,8 @@ func TestGame(t *testing.T) {
 	ctx := middlewaries.WithRequestIDContext(context.Background(), "test")
 	svc := game.NewService(log)
 	t.Run("getRandomChoiceID", func(t *testing.T) {
-		t.Log("Given we want to test RandomChoiceID")
-		if svc.RandomChoiceID(ctx) > 5 {
+		t.Log("Given we want to test GenerateRandomNumber")
+		if svc.GenerateRandomNumber(ctx) > 5 {
 			t.Fatalf("\t%s\tTest %s:\tShould receive a valid choice ID", "getRandomChoiceID", Failed)
 		}
 		t.Logf("\t%s\tTest %s:\tShould receive a valid choice ID", "getRandomChoiceID", Success)

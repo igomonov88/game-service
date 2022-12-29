@@ -14,6 +14,7 @@ import (
 	"githib.com/igomonov88/game-service/business/services/health"
 	"githib.com/igomonov88/game-service/business/services/play"
 	playStorage "githib.com/igomonov88/game-service/business/storage"
+	"githib.com/igomonov88/game-service/internal/clients/codechallenge"
 	"githib.com/igomonov88/game-service/internal/config"
 	"githib.com/igomonov88/game-service/internal/database"
 	"githib.com/igomonov88/game-service/internal/logger"
@@ -59,9 +60,10 @@ func run(logger *zap.SugaredLogger) error {
 	// =========================================================================
 	// Start Services
 	storage := playStorage.NewService(db)
+	client := codechallenge.Must(codechallenge.NewClient(logger, cfg.CodeChallenge))
 	gameService := game.NewService(logger)
-	playService := play.NewService(logger, storage, gameService)
-	choiceService := choice.NewService(logger, gameService)
+	playService := play.NewService(logger, storage, gameService, client)
+	choiceService := choice.NewService(logger, client, gameService)
 	healthService := health.NewService(db)
 	handler := handlers.Handler(logger, choiceService, playService, healthService)
 	logger.Infof("Services and handler started.")

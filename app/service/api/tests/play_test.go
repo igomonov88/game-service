@@ -25,7 +25,7 @@ func Test_Play(t *testing.T) {
 	t.Cleanup(test.Teardown)
 	gameServce := game.NewService(test.Log)
 	storage := storage.NewService(test.DB)
-	playService := service.NewService(test.Log, storage, gameServce)
+	playService := service.NewService(test.Log, storage, gameServce, gameServce)
 	api := handlers.Handler(test.Log, nil, playService, nil)
 	tests := PlayTest{handler: api}
 

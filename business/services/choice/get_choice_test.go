@@ -29,7 +29,7 @@ func Test_GetChoice(t *testing.T) {
 	log := logger.Must(logger.New("choice-test"))
 	ctx := middlewaries.WithRequestIDContext(context.Background(), "test")
 	gameService := game.NewService(log)
-	svc := choice.NewService(log, gameService)
+	svc := choice.NewService(log, gameService, gameService)
 	t.Run("getChoice", func(t *testing.T) {
 		t.Log("Given we request for a random choice")
 		{

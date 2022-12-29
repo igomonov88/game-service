@@ -6,14 +6,16 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 
+	"githib.com/igomonov88/game-service/internal/clients/codechallenge"
 	"githib.com/igomonov88/game-service/internal/database"
 	"githib.com/igomonov88/game-service/internal/server"
 )
 
 type Config struct {
-	Server      server.Config
-	Database    database.Config
-	ServiceName string
+	Server        server.Config
+	Database      database.Config
+	CodeChallenge codechallenge.Config
+	ServiceName   string
 }
 
 func Must(config *Config, err error) Config {

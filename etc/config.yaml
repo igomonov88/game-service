@@ -9,3 +9,7 @@ Server:
 Database:
   DriverName: sqlite3
   Name: billups_challenge.db
+
+CodeChallenge:
+  Host: codechallenge.boohma.com
+  Timeout: 5s
